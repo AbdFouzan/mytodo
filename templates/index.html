@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-lg p-4">
+  <h2 class="mb-4 text-center text-primary">My To-Do List ✅</h2>
+
+  <!-- Add Task Form -->
+  <form action="/" method="POST" class="row g-2 mb-4">
+      <div class="col-md-5">
+          <input type="text" name="content" placeholder="Enter task..." class="form-control" required>
+      </div>
+      <div class="col-md-3">
+          <input type="date" name="deadline" class="form-control">
+      </div>
+      <div class="col-md-2">
+          <select name="priority" class="form-select">
+              <option>Low</option>
+              <option>Medium</option>
+              <option>High</option>
+          </select>
+      </div>
+      <div class="col-md-2 d-grid">
+          <button type="submit" class="btn btn-primary">➕ Add</button>
+      </div>
+  </form>
+
+  <!-- Task List -->
+  <div class="table-responsive">
+      <table class="table table-hover align-middle">
+          <thead class="table-primary">
+              <tr>
+                  <th>Task</th>
+                  <th>Deadline</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th class="text-center">Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+          {% for task in tasks %}
+              <tr>
+                  <td class="{% if task.status == 'Done' %}text-decoration-line-through text-muted{% endif %}">
+                      {{ task.content }}
+                  </td>
+                  <td>{{ task.deadline if task.deadline else '-' }}</td>
+                  <td>
+                      <span class="badge 
+                          {% if task.priority == 'High' %} bg-danger 
+                          {% elif task.priority == 'Medium' %} bg-warning text-dark 
+                          {% else %} bg-success {% endif %}">
+                          {{ task.priority }}
+                      </span>
+                  </td>
+                  <td>
+                      {% if task.status == "Done" %}
+                          <span class="badge bg-success">Completed</span>
+                      {% else %}
+                          <span class="badge bg-secondary">Pending</span>
+                      {% endif %}
+                  </td>
+                  <td class="text-center">
+                      <a href="/update/{{ task.id }}" class="btn btn-sm btn-outline-info">✏ Edit</a>
+                      <a href="/delete/{{ task.id }}" class="btn btn-sm btn-outline-danger">🗑 Delete</a>
+                      <a href="/complete/{{ task.id }}" class="btn btn-sm btn-outline-success">
+                          {% if task.status == 'Pending' %}✔ Mark as Done{% else %}↩ Undo{% endif %}
+                      </a>
+                  </td>
+              </tr>
+          {% else %}
+              <tr>
+                  <td colspan="5" class="text-center text-muted">No tasks yet. Add one above! 🚀</td>
+              </tr>
+          {% endfor %}
+          </tbody>
+      </table>
+  </div>
+</div>
+{% endblock %}

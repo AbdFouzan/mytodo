@@ -1,0 +1,36 @@
+body {
+  background: #f4f7fc;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+}
+
+.card {
+  border-radius: 15px;
+  background: #fff;
+  border: none;
+}
+
+h1, h2 {
+  font-weight: 700;
+  color: #1f2d3d;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #eef7ff;
+  transition: 0.2s;
+}
+
+.badge {
+  font-size: 0.85rem;
+  padding: 0.45em 0.7em;
+  border-radius: 0.7rem;
+}
+
+.btn {
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.text-decoration-line-through {
+  opacity: 0.7;
+}
